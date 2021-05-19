@@ -1,0 +1,55 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myLibrary</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://bootswatch.com/4/yeti/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+</head>
+<body class="bg-secondary">
+<div class="container mt-4">
+    <h1 class="display-4 text-center">
+        <i class="fas fa-book-open text-primary"></i>My <span class="text-primary">Library</span></h1>
+
+        <form id="book-form" class="">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="author">Author</label>
+                <input type="text" id="title" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="pages">Pages</label>
+                <input type="text" id="title" class="form-control">
+            </div>
+
+            <label for="status" class="form-label">Status:</label> <br>
+                <select id="status" class="form-dropdown mb-4">
+                    <option value="read">Read</option>
+                    <option value="unread">Unread</option>
+                </select>
+
+                <input type="submit" value="Add book" class="btn btn-primary btn-block" />
+
+        </form>
+
+        <table class="table table-striped mt-4">
+            <tr class="table-dark">
+              <th scope="col">Name</th>
+              <th scope="col">Author</th>
+              <th scope="col">Pages</th>
+              <th scope="col">Status</th>
+              <th scope="col"></th>
+            </tr>
+            <tbody id="book-list"></tbody>
+          </table>
+</div>
+</body>
+</html>
