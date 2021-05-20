@@ -14,7 +14,7 @@
     <h1 class="display-4 text-center">
         <i class="fas fa-book-open text-primary"></i>My <span class="text-primary">Library</span></h1>
 
-        <form id="book-form" class="">
+        <form id="book-form">
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" id="title" class="form-control">
@@ -22,12 +22,12 @@
 
             <div class="form-group">
                 <label for="author">Author</label>
-                <input type="text" id="title" class="form-control">
+                <input type="text" id="author" class="form-control">
             </div>
 
             <div class="form-group">
                 <label for="pages">Pages</label>
-                <input type="text" id="title" class="form-control">
+                <input type="text" id="pages" class="form-control">
             </div>
 
             <label for="status" class="form-label">Status:</label> <br>
@@ -36,20 +36,20 @@
                     <option value="unread">Unread</option>
                 </select>
 
-                <input type="submit" value="Add book" class="btn btn-primary btn-block" />
-
+                <input type="submit" value="Add book" class="btn btn-primary btn-block"/>
         </form>
 
-        <table class="table table-striped mt-4">
-            <tr class="table-dark">
-              <th scope="col">Name</th>
-              <th scope="col">Author</th>
-              <th scope="col">Pages</th>
-              <th scope="col">Status</th>
-              <th scope="col"></th>
-            </tr>
+        <table class="table table-striped mt-5">
+              <th>Title</th>
+              <th>Author</th>
+              <th>Pages</th>
+              <th>Status</th>
+              <th>Change status</th>
+              <th></th>
             <tbody id="book-list"></tbody>
           </table>
 </div>
+
+<script src="app.js" type="text/javascript"></script>
 </body>
 </html>
