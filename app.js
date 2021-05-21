@@ -1,109 +1,136 @@
 // class book
 
 class Book {
-    constructor(title, author, pages, status) {
-      this.title = title;
-      this.author = author;
-      this.pages = pages;
-      this.status = status;
-    }
+  constructor(title, author, pages, status) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.status = status;
   }
+}
 
 // UI class
 
-  class UI {
-      static displayBooks() {
-          const StoredBooks = [
-              {
-                  title: 'maryian',
-                  author: 'lock',
-                  pages: '13',
-                  status: 'read'
+class UI {
+  static displayBooks() {
+    const books = Store.getBooks();
+    console.log('books', books);
+    if (books === null) {
+      return;
+    } else {
+      books.forEach((book) => UI.addBookToList(book));
+    }
+    addDeleteListener();
+    addEditListener();
+  }
 
-              },
-
-              {
-                title: 'ddaryian',
-                author: 'locky',
-                pages: '19',
-                status: 'unread'
-
-              }
-          ];
-
-          const books = StoredBooks;
-          books.forEach((book) => UI.addBookToList(book));
-      }
-
-      static addBookToList(book) {
-        const list = document.querySelector('#book-list');
-        const row = document.createElement('tr');
-        row.innerHTML = `
+  static addBookToList(book) {
+    const list = document.querySelector('#book-list');
+    const row = document.createElement('tr');
+    row.innerHTML = `
           <td>${book.title}</td>
           <td>${book.author}</td>
           <td>${book.pages}</td>
           <td>${book.status}</td>
-          <td><button class="status-button btn btn-success">${book.status}</button></td>
-          <td><a href="#" class="btn btn-danger btn-sm delete">X</a></td>
+          <td><button class="status-button btn btn-success editBtn" data-id="${book.id}">${book.status === "Read" ? "Unread" : "Read"}</button></td>
+          <td><a href="#" class="btn btn-danger btn-sm delete removeBtn" data-id="${book.id}">X</a></td>
         `;
 
-        list.appendChild(row);
-      }
-
-      static deleteBook(el) {
-        if (el.classList.contains('delete')) {
-          el.parentElement.parentElement.remove();
-        }
-      }
-
-      static showAlert(message, className) {
-        const div = document.createElement('div');
-        div.className = `alert alert-${className}`;
-        div.appendChild(document.createTextNode(message));
-        const container = document.querySelector('.container');
-        const form = document.querySelector('#book-form');
-        container.insertBefore(div, form);
-
-        // vanish in 3 seconds
-        setTimeout(() => document.querySelector('.alert').remove(), 2000);
-
-      }
-
-      static clearFields() {
-        document.querySelector('#title').value = '';
-        document.querySelector('#author').value = '';
-        document.querySelector('#pages').value = '';
-        document.querySelector('#staus').value = '';
-      }
+    list.appendChild(row);
   }
 
+  static deleteBook(el) {
+    if (el.classList.contains('delete')) {
+      el.parentElement.parentElement.remove();
+    }
+  }
 
-  // Event: display books
-  document.addEventListener('DOMContentLoaded', UI.displayBooks);
+  static showAlert(message, className) {
+    const div = document.createElement('div');
+    div.className = `alert alert-${className}`;
+    div.appendChild(document.createTextNode(message));
+    const container = document.querySelector('.container');
+    const form = document.querySelector('#book-form');
+    container.insertBefore(div, form);
 
-  // Event: add a book
+    // vanish in 2 seconds
+    setTimeout(() => document.querySelector('.alert').remove(), 2000);
 
-  document.querySelector('#book-form').addEventListener('submit', (e) => {
+  }
+
+  static clearFields() {
+    document.querySelector('#title').value = '';
+    document.querySelector('#author').value = '';
+    document.querySelector('#pages').value = '';
+    document.querySelector('#status').value = '';
+  }
+}
+
+class Store {
+  static getBooks() {
+
+    const books = localStorage.getItem("books") === null ? [] : JSON.parse(localStorage.getItem("books"));
+    return books;
+
+  }
+
+  static addBook(book) {
+    const books = Store.getBooks();
+    book.id = Date.now().toString();
+    books.push(book);
+    localStorage.setItem('books', JSON.stringify(books));
+
+  }
+
+  static removeBook(id) {
+    let books = Store.getBooks();
+    books = books.filter((book) => book.id !== id)
+    localStorage.setItem('books', JSON.stringify(books));
+
+  }
+
+  static updateBook(id, newStatus) {
+    let books = Store.getBooks();
+
+    books = books.map((book) => {
+      if (book.id === id) {
+        book.status = newStatus;
+      }
+      return book;
+    })
+    localStorage.setItem('books', JSON.stringify(books));
+  }
+
+}
+
+// Event: display books
+document.addEventListener('DOMContentLoaded', UI.displayBooks);
+
+document.querySelector('#book-form').addEventListener('submit', (e) => {
 
   // prevent actual submit
-    e.preventDefault();
+  e.preventDefault();
 
   // get form values
-    const title = document.querySelector('#title').value;
-    const author = document.querySelector('#author').value;
-    const pages = document.querySelector('#pages').value;
-    const status = document.querySelector('#status').value;
+  const title = document.querySelector('#title').value;
+  const author = document.querySelector('#author').value;
+  const pages = document.querySelector('#pages').value;
+  const status = document.querySelector('#status').value;
 
-    //validate
-    if (title === '' || author === '' || pages === '') {
-      UI.showAlert('please fill in all fields', 'danger');
-    } else {
-       // instatiate book
+  //validate
+  if (title === '' || author === '' || pages === '') {
+    UI.showAlert('please fill in all fields', 'danger');
+  } else {
+    // instatiate book
 
     const book = new Book(title, author, pages, status);
+    // console.log("Book |", book);
 
-    // add book to list
+    // add book to UI
     UI.addBookToList(book);
+
+    // add book to store
+    Store.addBook(book);
 
     // show success message
     UI.showAlert('Book Added', 'success');
@@ -112,21 +139,47 @@ class Book {
 
     UI.clearFields();
 
-    }
-  });
-
-
-
-  // Event: remove a book
-  document.querySelector('#book-list').addEventListener('click', (e) => {
-    UI.deleteBook(e.target)
-
-    // show success message
-    UI.showAlert('Book Removed', 'success');
-  });
-
-  function changeStatus(book) {
-    if (library[book].status === 'read') {
-      library[book].status = 'not read';
-    } else library[book].status = 'read';
   }
+});
+
+
+
+// Event: remove a book
+const addDeleteListener = () => {
+  document.querySelectorAll('.removeBtn').forEach(ele => {
+    ele.addEventListener('click', (e) => {
+      e.preventDefault();
+      console.log('Clicked')
+      // Remove book from UI
+      UI.deleteBook(e.target);
+
+      // Remove book from store
+      Store.removeBook(e.target.getAttribute('data-id'));
+
+      // show success message
+      UI.showAlert('Book Removed', 'success');
+    })
+  });
+}
+
+const addEditListener = () => {
+  document.querySelectorAll('.editBtn').forEach(ele => {
+    ele.addEventListener('click', (e) => {
+      // Toggle the button text when clicked Read/Unread
+      const currentValue = e.target.textContent;
+      const statusText = e.target.parentElement.previousElementSibling
+      if (currentValue.toLowerCase() === 'read') {
+        e.target.textContent = "Unread";
+      } else {
+        e.target.textContent = "Read";
+      }
+      statusText.textContent = currentValue;
+
+      // Update the book inthe store
+      Store.updateBook(e.target.getAttribute('data-id'), currentValue);
+
+      // show success message
+      UI.showAlert('Book Updated', 'success');
+    })
+  });
+}

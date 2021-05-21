@@ -4,7 +4,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>myLibrary</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://bootswatch.com/4/yeti/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
@@ -40,12 +39,14 @@
         </form>
 
         <table class="table table-striped mt-5">
-              <th>Title</th>
+            <thead class="table-dark">
+            <th>Title</th>
               <th>Author</th>
               <th>Pages</th>
               <th>Status</th>
               <th>Change status</th>
               <th></th>
+            </thead>
             <tbody id="book-list"></tbody>
           </table>
 </div>
