@@ -14,12 +14,11 @@ class Book {
 class UI {
   static displayBooks() {
     const books = Store.getBooks();
-    console.log('books', books);
     if (books === null) {
       return;
-    } else {
-      books.forEach((book) => UI.addBookToList(book));
     }
+    books.forEach((book) => UI.addBookToList(book));
+
     addDeleteListener();
     addEditListener();
   }
@@ -32,7 +31,7 @@ class UI {
           <td>${book.author}</td>
           <td>${book.pages}</td>
           <td>${book.status}</td>
-          <td><button class="status-button btn btn-success editBtn" data-id="${book.id}">${book.status === "Read" ? "Unread" : "Read"}</button></td>
+          <td><button class="status-button btn btn-success editBtn" data-id="${book.id}">${book.status === 'Read' ? 'Unread' : 'Read'}</button></td>
           <td><a href="#" class="btn btn-danger btn-sm delete removeBtn" data-id="${book.id}">X</a></td>
         `;
 
@@ -55,7 +54,6 @@ class UI {
 
     // vanish in 2 seconds
     setTimeout(() => document.querySelector('.alert').remove(), 2000);
-
   }
 
   static clearFields() {
@@ -68,10 +66,8 @@ class UI {
 
 class Store {
   static getBooks() {
-
-    const books = localStorage.getItem("books") === null ? [] : JSON.parse(localStorage.getItem("books"));
+    const books = localStorage.getItem('books') === null ? [] : JSON.parse(localStorage.getItem('books'));
     return books;
-
   }
 
   static addBook(book) {
@@ -79,14 +75,12 @@ class Store {
     book.id = Date.now().toString();
     books.push(book);
     localStorage.setItem('books', JSON.stringify(books));
-
   }
 
   static removeBook(id) {
     let books = Store.getBooks();
-    books = books.filter((book) => book.id !== id)
+    books = books.filter((book) => book.id !== id);
     localStorage.setItem('books', JSON.stringify(books));
-
   }
 
   static updateBook(id, newStatus) {
@@ -97,17 +91,15 @@ class Store {
         book.status = newStatus;
       }
       return book;
-    })
+    });
     localStorage.setItem('books', JSON.stringify(books));
   }
-
 }
 
 // Event: display books
 document.addEventListener('DOMContentLoaded', UI.displayBooks);
 
 document.querySelector('#book-form').addEventListener('submit', (e) => {
-
   // prevent actual submit
   e.preventDefault();
 
@@ -117,7 +109,7 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
   const pages = document.querySelector('#pages').value;
   const status = document.querySelector('#status').value;
 
-  //validate
+  // validate
   if (title === '' || author === '' || pages === '') {
     UI.showAlert('please fill in all fields', 'danger');
   } else {
@@ -138,18 +130,14 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
     // clear fields
 
     UI.clearFields();
-
   }
 });
 
-
-
 // Event: remove a book
 const addDeleteListener = () => {
-  document.querySelectorAll('.removeBtn').forEach(ele => {
+  document.querySelectorAll('.removeBtn').forEach((ele) => {
     ele.addEventListener('click', (e) => {
       e.preventDefault();
-      console.log('Clicked')
       // Remove book from UI
       UI.deleteBook(e.target);
 
@@ -158,20 +146,20 @@ const addDeleteListener = () => {
 
       // show success message
       UI.showAlert('Book Removed', 'success');
-    })
+    });
   });
-}
+};
 
 const addEditListener = () => {
-  document.querySelectorAll('.editBtn').forEach(ele => {
+  document.querySelectorAll('.editBtn').forEach((ele) => {
     ele.addEventListener('click', (e) => {
       // Toggle the button text when clicked Read/Unread
       const currentValue = e.target.textContent;
-      const statusText = e.target.parentElement.previousElementSibling
+      const statusText = e.target.parentElement.previousElementSibling;
       if (currentValue.toLowerCase() === 'read') {
-        e.target.textContent = "Unread";
+        e.target.textContent = 'Unread';
       } else {
-        e.target.textContent = "Read";
+        e.target.textContent = 'Read';
       }
       statusText.textContent = currentValue;
 
@@ -180,6 +168,6 @@ const addEditListener = () => {
 
       // show success message
       UI.showAlert('Book Updated', 'success');
-    })
+    });
   });
-}
+};

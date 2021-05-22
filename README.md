@@ -8,14 +8,18 @@ A simple vanila Javascript and HTML project .This project has the following feat
 
 - Users can remove books from library
 
-- Users can track the status of the book whether it is read or not read
+- Users can change the status of the book whether it is read or not read
 
 -  The book database will be stored in the users localstorage.
+
+## image
+![image](https://user-images.githubusercontent.com/60876346/119208198-eda8f380-ba98-11eb-8a76-082423768d66.png)
+
 
 
 ## Live Demo
 
-- [Live Demo Link](https://davidosky007.github.io/JS_Library/)
+- [Live Demo Link]()
 
 
 ## Built With
@@ -25,32 +29,23 @@ A simple vanila Javascript and HTML project .This project has the following feat
 
 ### Install and Setup
 
-- Clone repo to your local `https://github.com/Davidosky007/JS_Library`
+- Clone repo to your local `https://github.com/Adewunmi97/library.git`
 - cd into the cloned repo
 - Open a terminal in the root of the app
 
 
 ## Author
 
-👤 **Popoola Grace Boluwatife**
+👤 **Shonibare Adewunmi**
 
-- Github: [@GraceOyiza](https://github.com/GraceOyiza)
-- Twitter: [@_PopsonGrace](https://twitter.com/_PopsonGrace)
-- LinkedIn: [@grace](https://www.linkedin.com/in/grace-popoola)
-
-## Author
-
-👤 **David Bassey**
-
-- GitHub: [@davidosky007](https://github.com/davidosky007)
-- Twitter: [@davidosky2](https://twitter.com/Davidosky2)
-- LinkedIn: [David Bassey](https://www.linkedin.com/in/david-bassey-akan/)
+- Github: [@Adewunmi97](https://github.com/Adewunmi97)
+- Twitter: [@ShonibareC](https://twitter.com/ShonibareC)
 
 ## 🤝 Contributing
 
 Contributions, issues and feature requests are welcome!
 
-Feel free to check the [issues page](https://github.com/Davidosky007/JS_Library/issues).
+Feel free to check the [issues page](https://github.com/Adewunmi97/library/issues).
 
 ## Show your support
 
