@@ -161,6 +161,10 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
     // clear fields
     clearFields();
 
+    // delete
     addDeleteListener();
+
+    // edit status
+    addEditListener();
   }
 });
