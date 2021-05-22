@@ -1,3 +1,4 @@
+// class book
 function Book(title, author, pages, status) {
   this.title = title;
   this.author = author;
@@ -158,7 +159,8 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
     showAlert('Book Added', 'success');
 
     // clear fields
-
     clearFields();
+
+    addDeleteListener();
   }
 });
