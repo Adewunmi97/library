@@ -19,7 +19,7 @@ A simple vanila Javascript and HTML project .This project has the following feat
 
 ## Live Demo
 
-- [Live Demo Link]()
+- [Live Demo Link](https://adewunmi97.github.io/library/)
 
 
 ## Built With
@@ -55,5 +55,6 @@ Give a ⭐️ if you like this project!
 
 - Microverse
 
-
 ## 📝 License
+
+- MIT
