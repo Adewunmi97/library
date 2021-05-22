@@ -1,100 +1,19 @@
-// class book
+import UI from './UI.js'
+import Store from './Store.js'
 
-class Book {
-  constructor(title, author, pages, status) {
+// class book
+function Book(title, author, pages, status) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.status = status;
   }
-}
+
 
 // UI class
 
-class UI {
-  static displayBooks() {
-    const books = Store.getBooks();
-    if (books === null) {
-      return;
-    }
-    books.forEach((book) => UI.addBookToList(book));
 
-    addDeleteListener();
-    addEditListener();
-  }
-
-  static addBookToList(book) {
-    const list = document.querySelector('#book-list');
-    const row = document.createElement('tr');
-    row.innerHTML = `
-          <td>${book.title}</td>
-          <td>${book.author}</td>
-          <td>${book.pages}</td>
-          <td>${book.status}</td>
-          <td><button class="status-button btn btn-success editBtn" data-id="${book.id}">${book.status === 'Read' ? 'Unread' : 'Read'}</button></td>
-          <td><a href="#" class="btn btn-danger btn-sm delete removeBtn" data-id="${book.id}">X</a></td>
-        `;
-
-    list.appendChild(row);
-  }
-
-  static deleteBook(el) {
-    if (el.classList.contains('delete')) {
-      el.parentElement.parentElement.remove();
-    }
-  }
-
-  static showAlert(message, className) {
-    const div = document.createElement('div');
-    div.className = `alert alert-${className}`;
-    div.appendChild(document.createTextNode(message));
-    const container = document.querySelector('.container');
-    const form = document.querySelector('#book-form');
-    container.insertBefore(div, form);
-
-    // vanish in 2 seconds
-    setTimeout(() => document.querySelector('.alert').remove(), 2000);
-  }
-
-  static clearFields() {
-    document.querySelector('#title').value = '';
-    document.querySelector('#author').value = '';
-    document.querySelector('#pages').value = '';
-    document.querySelector('#status').value = '';
-  }
-}
-
-class Store {
-  static getBooks() {
-    const books = localStorage.getItem('books') === null ? [] : JSON.parse(localStorage.getItem('books'));
-    return books;
-  }
-
-  static addBook(book) {
-    const books = Store.getBooks();
-    book.id = Date.now().toString();
-    books.push(book);
-    localStorage.setItem('books', JSON.stringify(books));
-  }
-
-  static removeBook(id) {
-    let books = Store.getBooks();
-    books = books.filter((book) => book.id !== id);
-    localStorage.setItem('books', JSON.stringify(books));
-  }
-
-  static updateBook(id, newStatus) {
-    let books = Store.getBooks();
-
-    books = books.map((book) => {
-      if (book.id === id) {
-        book.status = newStatus;
-      }
-      return book;
-    });
-    localStorage.setItem('books', JSON.stringify(books));
-  }
-}
+// store.js
 
 // Event: display books
 document.addEventListener('DOMContentLoaded', UI.displayBooks);
