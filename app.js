@@ -1,4 +1,4 @@
-// class book
+
 function Book(title, author, pages, status) {
   this.title = title;
   this.author = author;
@@ -52,7 +52,6 @@ function showAlert(message, className) {
   const form = document.querySelector('#book-form');
   container.insertBefore(div, form);
 
-  // vanish in 2 seconds
   setTimeout(() => document.querySelector('.alert').remove(), 2000);
 }
 
@@ -66,13 +65,11 @@ const addDeleteListener = () => {
   document.querySelectorAll('.removeBtn').forEach((ele) => {
     ele.addEventListener('click', (e) => {
       e.preventDefault();
-      // Remove book from UI
+
       deleteBook(e.target);
 
-      // Remove book from store
       removeBook(e.target.getAttribute('data-id'));
 
-      // show success message
       showAlert('Book Removed', 'success');
     });
   });
