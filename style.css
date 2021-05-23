@@ -1,1 +1,4 @@
-/* no css file just bootstrap used */
+* {
+  margin: 0;
+  padding: 0;
+}
