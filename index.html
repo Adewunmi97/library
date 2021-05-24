@@ -1,0 +1,57 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myLibrary</title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/yeti/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+</head>
+<body class="bg-secondary">
+<div class="container mt-4">
+    <h1 class="display-4 text-center">
+        <i class="fas fa-book-open text-primary"></i>My <span class="text-primary">Library</span></h1>
+
+        <form id="book-form">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="author">Author</label>
+                <input type="text" id="author" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="pages">Pages</label>
+                <input type="text" id="pages" class="form-control">
+            </div>
+
+            <label for="status" class="form-label">Status:</label> <br>
+                <select id="status" class="form-dropdown mb-4">
+                    <option value="read">Read</option>
+                    <option value="unread">Unread</option>
+                </select>
+
+                <input type="submit" value="Add book" class="btn btn-primary btn-block"/>
+        </form>
+
+        <table class="table table-striped mt-5">
+            <thead class="table-dark">
+            <th>Title</th>
+              <th>Author</th>
+              <th>Pages</th>
+              <th>Status</th>
+              <th>Change status</th>
+              <th></th>
+            </thead>
+            <tbody id="book-list"></tbody>
+          </table>
+</div>
+
+<script src="app.js" type="text/javascript"></script>
+</body>
+</html>
