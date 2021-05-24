@@ -5,16 +5,16 @@ function Book(title, author, pages, status) {
   this.status = status;
 }
 
-const deleteBook = el => {
+const deleteBook = (el) => {
   if (el.classList.contains('delete')) {
     el.parentElement.parentElement.remove();
   }
-}
+};
 
 const getBooks = () => {
   const books = localStorage.getItem('books') === null ? [] : JSON.parse(localStorage.getItem('books'));
   return books;
-}
+};
 
 const addBookToList = (book, id) => {
   const list = document.querySelector('#book-list');
@@ -29,7 +29,7 @@ const addBookToList = (book, id) => {
           `;
 
   list.appendChild(row);
-}
+};
 
 const updateBook = (id, newStatus) => {
   let books = getBooks();
@@ -41,7 +41,7 @@ const updateBook = (id, newStatus) => {
   });
 
   localStorage.setItem('books', JSON.stringify(books));
-}
+};
 
 const showAlert = (message, className) => {
   const div = document.createElement('div');
@@ -52,13 +52,13 @@ const showAlert = (message, className) => {
   container.insertBefore(div, form);
 
   setTimeout(() => document.querySelector('.alert').remove(), 2000);
-}
+};
 
-const removeBook = id => {
+const removeBook = (id) => {
   let books = getBooks();
   books = books.filter((book) => book.id !== id);
   localStorage.setItem('books', JSON.stringify(books));
-}
+};
 
 const addDeleteListener = () => {
   document.querySelectorAll('.removeBtn').forEach((ele) => {
@@ -98,7 +98,7 @@ const addEditListener = () => {
 
 // UI class
 
-const  displayBooks = () => {
+const displayBooks = () => {
   const books = getBooks();
   if (books === null) {
     return;
@@ -107,22 +107,22 @@ const  displayBooks = () => {
 
   addDeleteListener();
   addEditListener();
-}
+};
 
 const clearFields = () => {
   document.querySelector('#title').value = '';
   document.querySelector('#author').value = '';
   document.querySelector('#pages').value = '';
   document.querySelector('#status').value = '';
-}
+};
 
 const addBook = (book, id) => {
   const books = getBooks();
-  book.id = id
+  book.id = id;
   // book.id = Date.now().toString();
   books.push(book);
   localStorage.setItem('books', JSON.stringify(books));
-}
+};
 
 // Event: display books
 document.addEventListener('DOMContentLoaded', displayBooks);
@@ -144,7 +144,6 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
     // instatiate book
 
     const book = new Book(title, author, pages, status);
-
 
     // add book to UI
 
