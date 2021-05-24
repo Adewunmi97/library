@@ -16,7 +16,7 @@ const getBooks = () => {
   return books;
 }
 
-const addBookToList = book => {
+const addBookToList = (book, id) => {
   const list = document.querySelector('#book-list');
   const row = document.createElement('tr');
   row.innerHTML = `
@@ -25,7 +25,7 @@ const addBookToList = book => {
             <td>${book.pages}</td>
             <td>${book.status}</td>
             <td><button class="status-button btn btn-success editBtn" data-id="${book.id}">${book.status === 'Read' ? 'Unread' : 'Read'}</button></td>
-            <td><a href="#" class="btn btn-danger btn-sm delete removeBtn" data-id="${book.id}">X</a></td>
+            <td><a href="#" class="btn btn-danger btn-sm delete removeBtn" data-id="${id}">X</a></td>
           `;
 
   list.appendChild(row);
@@ -33,13 +33,13 @@ const addBookToList = book => {
 
 const updateBook = (id, newStatus) => {
   let books = getBooks();
-
   books = books.map((book) => {
     if (book.id === id) {
       book.status = newStatus;
     }
     return book;
   });
+
   localStorage.setItem('books', JSON.stringify(books));
 }
 
@@ -87,7 +87,7 @@ const addEditListener = () => {
       }
       statusText.textContent = currentValue;
 
-      // Update the book inthe store
+      // Update the book int he store
       updateBook(e.target.getAttribute('data-id'), currentValue);
 
       // show success message
@@ -116,9 +116,10 @@ const clearFields = () => {
   document.querySelector('#status').value = '';
 }
 
-const addBook = (book) => {
+const addBook = (book, id) => {
   const books = getBooks();
-  book.id = Date.now().toString();
+  book.id = id
+  // book.id = Date.now().toString();
   books.push(book);
   localStorage.setItem('books', JSON.stringify(books));
 }
@@ -143,13 +144,15 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
     // instatiate book
 
     const book = new Book(title, author, pages, status);
-    // console.log("Book |", book);
+
 
     // add book to UI
-    addBookToList(book);
 
     // add book to store
-    addBook(book);
+    const id = Date.now().toString();
+    addBook(book, id);
+
+    addBookToList(book, id);
 
     // show success message
     showAlert('Book Added', 'success');
