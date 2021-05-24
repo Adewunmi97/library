@@ -5,18 +5,18 @@ function Book(title, author, pages, status) {
   this.status = status;
 }
 
-function deleteBook(el) {
+const deleteBook = el => {
   if (el.classList.contains('delete')) {
     el.parentElement.parentElement.remove();
   }
 }
 
-function getBooks() {
+const getBooks = () => {
   const books = localStorage.getItem('books') === null ? [] : JSON.parse(localStorage.getItem('books'));
   return books;
 }
 
-function addBookToList(book) {
+const addBookToList = book => {
   const list = document.querySelector('#book-list');
   const row = document.createElement('tr');
   row.innerHTML = `
@@ -31,7 +31,7 @@ function addBookToList(book) {
   list.appendChild(row);
 }
 
-function updateBook(id, newStatus) {
+const updateBook = (id, newStatus) => {
   let books = getBooks();
 
   books = books.map((book) => {
@@ -43,7 +43,7 @@ function updateBook(id, newStatus) {
   localStorage.setItem('books', JSON.stringify(books));
 }
 
-function showAlert(message, className) {
+const showAlert = (message, className) => {
   const div = document.createElement('div');
   div.className = `alert alert-${className}`;
   div.appendChild(document.createTextNode(message));
@@ -54,7 +54,7 @@ function showAlert(message, className) {
   setTimeout(() => document.querySelector('.alert').remove(), 2000);
 }
 
-function removeBook(id) {
+const removeBook = id => {
   let books = getBooks();
   books = books.filter((book) => book.id !== id);
   localStorage.setItem('books', JSON.stringify(books));
@@ -98,7 +98,7 @@ const addEditListener = () => {
 
 // UI class
 
-function displayBooks() {
+const  displayBooks = () => {
   const books = getBooks();
   if (books === null) {
     return;
@@ -109,14 +109,14 @@ function displayBooks() {
   addEditListener();
 }
 
-function clearFields() {
+const clearFields = () => {
   document.querySelector('#title').value = '';
   document.querySelector('#author').value = '';
   document.querySelector('#pages').value = '';
   document.querySelector('#status').value = '';
 }
 
-function addBook(book) {
+const addBook = (book) => {
   const books = getBooks();
   book.id = Date.now().toString();
   books.push(book);
